@@ -2,8 +2,7 @@
 #include <vector>   //for dynamic array size
 #include <algorithm>
 #include <string>
-#include <bits/stdc++.h> 
-#include <utility>
+#include <iomanip>
 using namespace std;
 
 class Time
@@ -15,6 +14,9 @@ private: // outline the private attributes of the Time class
   double time;
 
 public: // outline the public functions of the Time class
+  Time(){
+
+  }
   Time(int y, int m, int d, double t)
   { // all arguments constructor function
     year = y;
@@ -29,9 +31,9 @@ public: // outline the public functions of the Time class
   int getTime() { return time; }
   // setters functions
   void setYear(int y) { year = y; }
-  void setMonth(int m) { year = m; }
-  void setDay(int d) { year = d; }
-  void setTime(double t) { year = t; }
+  void setMonth(int m) { month = m; }
+  void setDay(int d) { day = d; }
+  void setTime(double t) { time = t; }
 
   friend ostream &operator<<(ostream &os, const Time &t)
   {
@@ -308,11 +310,7 @@ class Meeting : public Event{
         double duration;
     
     public:
-        Meeting(string a, string t, double d){
-            agenda = a;
-            type = t;
-            duration = d;
-        }
+        Meeting(string ti, Time st, Time et, Location l, double f, bool t, bool c,string a, string ty, double d) : Event(ti, st, et, l, f, t, c), agenda(a), type(ty), duration(d){}
         //getters
         string getAgenda(){ return agenda;}
         string getType(){return type;}
@@ -322,7 +320,7 @@ class Meeting : public Event{
         void setAgenda(string a){agenda = a;}
         void setType(string t){type = t;}
         void setDuration(double d){
-            if (duration <= 0){
+            if (d <= 0){
                 cout << "The duration can't be negative" << endl;
             }
             else{
@@ -333,7 +331,7 @@ class Meeting : public Event{
         //add attendees 
         void add_attendee(const string &add_name){
             attendees.push_back(add_name);
-            cout << add_name << "has been added to the list";
+            cout << add_name << " has been added to the list" << endl;
             cout << "Updated list of attendees: ";
             for (auto i : attendees){
                 cout << "- " << i << endl;
@@ -345,7 +343,7 @@ class Meeting : public Event{
             auto remove_attend = find(attendees.begin(), attendees.end(), remove_name);
             if (remove_attend != attendees.end()){
                 attendees.erase(remove_attend);
-                cout << remove_name << "has been removed from the list of attendees" << endl;
+                cout << remove_name << " has been removed from the list of attendees" << endl;
                 cout << "The updated list is of attendees is: ";
                 for (auto j : attendees){
                     cout << "- " << j << endl;
@@ -372,18 +370,16 @@ class General : public Meeting{
         vector <string> equipment;
 
     public:
-        General(string rn){
-            room_number = rn;
-            equip_needed = en;
-        }
+        General(string ti, Time st, Time et, Location l, double f, bool t, bool c,string a, string ty, double d, string rn, bool en) : Meeting(ti,st,et,l,f,t,c,a,ty,d), room_number(rn),equip_needed(en){}
+        
 
         //getter
         string getRoomNumber(){return room_number;}
-        string getEquipNeeded(){return equip_needed;}
+        bool getEquipNeeded(){return equip_needed;}
 
         //setter
         void setRoomNumber(string rn){room_number = rn;}
-        void setEquipNeeded(string en){equip_needed = en;}
+        void setEquipNeeded(bool en){equip_needed = en;}
 
         void add_equip(const string &equipment_added){
             if (equip_needed != false){
@@ -431,10 +427,7 @@ class oneOnOne : public Meeting{
         bool follow_up;
 
     public:
-        oneOnOne(string n, bool fr){
-            name = n;
-            follow_up = fr;
-        }
+        oneOnOne(string ti, Time st, Time et, Location l, double f, bool t, bool c,string a, string ty, double d,string n, bool fr) : Meeting(ti,st,et,l,f,t,c,a,ty,d), name(n), follow_up(fr){}
 
         //getters
         string getName(){return name;}
@@ -442,7 +435,7 @@ class oneOnOne : public Meeting{
 
         //setters
         void setName(string n){name = n;}
-        void setFollowUp(string fr){follow_up = fr;}
+        void setFollowUp(bool fr){follow_up = fr;}
 
         void display(){
             cout << "One on one meeting details: " << endl;
@@ -545,12 +538,3 @@ class Email{
             }
         }
 };
-
-int main()
-{
-  Time t1 = Time(2024, 12, 1, 10.45);
-  Time t2 = Time(2024, 12, 1, 11.00);
-  Location l = Location("Lebanon", "Beirut", "Ras el Nabeh", 00000);
-  Event t = Event("Student Meeting", t1, t2, l, 5000, true, false);
-  t.displayInformation();
-}
