@@ -2,6 +2,8 @@
 #include <vector>   //for dynamic array size
 #include <algorithm>
 #include <string>
+#include <bits/stdc++.h> 
+#include <utility>
 using namespace std;
 
 class Time
@@ -296,6 +298,252 @@ public:
     cout << "Instructor Number: " << number << endl;
     cout << "Equipment needed?: " << equipment << endl;
   }
+};
+
+class Meeting : public Event{
+    private:
+        string agenda;
+        string type;
+        vector<string> attendees;
+        double duration;
+    
+    public:
+        Meeting(string a, string t, double d){
+            agenda = a;
+            type = t;
+            duration = d;
+        }
+        //getters
+        string getAgenda(){ return agenda;}
+        string getType(){return type;}
+        double getDuration(){return duration;}
+
+        //setters
+        void setAgenda(string a){agenda = a;}
+        void setType(string t){type = t;}
+        void setDuration(double d){
+            if (duration <= 0){
+                cout << "The duration can't be negative" << endl;
+            }
+            else{
+                duration = d;
+            }
+        }
+
+        //add attendees 
+        void add_attendee(const string &add_name){
+            attendees.push_back(add_name);
+            cout << add_name << "has been added to the list";
+            cout << "Updated list of attendees: ";
+            for (auto i : attendees){
+                cout << "- " << i << endl;
+            }
+        }
+
+        //remove attendees 
+        void remove_attendee(const string &remove_name){
+            auto remove_attend = find(attendees.begin(), attendees.end(), remove_name);
+            if (remove_attend != attendees.end()){
+                attendees.erase(remove_attend);
+                cout << remove_name << "has been removed from the list of attendees" << endl;
+                cout << "The updated list is of attendees is: ";
+                for (auto j : attendees){
+                    cout << "- " << j << endl;
+                }
+            }
+            else{
+                cout << remove_name << "doesn't exist in the list of equipments" << endl;
+            }
+        }
+
+        void display(){ // general display
+            cout << "Agenda: " << agenda << endl << "Type of meeting: " << type << endl << "Duration: " << duration << endl << "Attendees: ";
+            for (auto i : attendees){
+                cout << "- " << i << endl;
+            }
+        }
+        
+};
+
+class General : public Meeting{
+    private:
+        string room_number;
+        bool equip_needed;
+        vector <string> equipment;
+
+    public:
+        General(string rn){
+            room_number = rn;
+            equip_needed = en;
+        }
+
+        //getter
+        string getRoomNumber(){return room_number;}
+        string getEquipNeeded(){return equip_needed;}
+
+        //setter
+        void setRoomNumber(string rn){room_number = rn;}
+        void setEquipNeeded(string en){equip_needed = en;}
+
+        void add_equip(const string &equipment_added){
+            if (equip_needed != false){
+                equipment.push_back(equipment_added);
+                cout << equipment_added << "has been added to the list of equipments" << endl;
+                for (auto i : equipment){
+                    cout << "- " << i << endl;
+                }
+            }
+            else{
+                cout << "No equipment needed" << endl;
+            }
+        }
+
+        void remove_equip(const string &equipment_removed){
+            auto equip_rem = find(equipment.begin(), equipment.end(), equipment_removed);
+            if (equip_rem != equipment.end()){
+                equipment.erase(equip_rem);
+                cout << equipment_removed << "has been removed from the list of equipments" << endl;
+                cout << "The updated list is of equipments is: ";
+                for (auto j : equipment){
+                    cout << "- " << j << endl;
+                }
+            }
+            else{
+                cout << equipment_removed << "doesn't exist in the list of equipments" << endl;
+            }
+        }
+
+        void display(){
+            cout << "General meeting information: " << endl;
+            cout << "Room number: " << room_number << endl;
+            if (equip_needed != false){
+                cout << "Equipment needed: " << endl;
+                for (auto i : equipment){
+                    cout << "- " << i << endl;
+                }
+            }
+        }
+
+};
+class oneOnOne : public Meeting{
+    private:
+        string name;
+        bool follow_up;
+
+    public:
+        oneOnOne(string n, bool fr){
+            name = n;
+            follow_up = fr;
+        }
+
+        //getters
+        string getName(){return name;}
+        bool getFollowUp(){return follow_up;}
+
+        //setters
+        void setName(string n){name = n;}
+        void setFollowUp(string fr){follow_up = fr;}
+
+        void display(){
+            cout << "One on one meeting details: " << endl;
+            cout << "Name: " << name << endl;
+            cout << "Follow up required? " << follow_up << endl;
+        }
+
+};
+
+class Email{
+    private:
+        Time time_sent;
+        vector <string> recipients;
+        string content;
+        string email_type;
+        bool priority;
+        vector <string> attachments;
+
+    public:
+        Email(Time ts, string c, string emt, bool p){
+            time_sent = ts;
+            content = c;
+            email_type = emt;
+            priority = true;
+        }
+
+        //getters
+        Time getTimeSent(){return time_sent;}
+        string getContent(){return content;}
+        string getEmailType(){return email_type;}
+        bool getPriority(){return priority;}
+
+        //setters
+        void setTimeSent(Time ts){time_sent = ts;}
+        void setContent(string c){content = c;}
+        void setEmailType(string emt){email_type = emt;}
+        void setPriority(bool p){priority = p;}
+
+        void add_recipient(const string &add_name){
+            recipients.push_back(add_name);
+            cout << add_name << "has been added to the list of recipients" << endl;
+            cout << "Updated list of recipients: " << endl;
+            for (auto i : recipients){
+                cout << "- " << i << endl;
+            }
+        }
+
+        void remove_recipient(const string &remove_name){
+            auto name = find(recipients.begin(), recipients.end(), remove_name);
+            if (name != recipients.end()){
+                recipients.erase(name);
+                cout << remove_name << "was removed from the list of recipients" << endl;
+                cout << "The updated list of recipients is: " << endl;
+                for (auto i : recipients){
+                    cout << "- " << i << endl;
+                }
+            }
+            else{
+                cout << remove_name << "doesn't exist in the list of recipients" << endl;
+            }
+        }
+
+        void add_attachment(const string &add_attach){
+            attachments.push_back(add_attach);
+            cout << add_attach << "has been added to the list of attachments" << endl;
+            cout << "Updated list of attachments: " << endl;
+            for (auto i : attachments){
+                cout << "- " << i << endl;
+            }
+        }
+
+        void remove_attachment(const string &remove_attach){
+            auto attach = find(attachments.begin(), attachments.end(), remove_attach);
+            if (attach != attachments.end()){
+                attachments.erase(attach);
+                cout << remove_attach << "was removed from the list of attachments" << endl;
+                cout << "The updated list of attachments is: " << endl;
+                for (auto i : attachments){
+                    cout << "- " << i << endl;
+                }
+            }
+            else{
+                cout << remove_attach << "doesn't exist in the list of attachements" << endl;
+            }
+        }
+
+        void display(){
+            cout << "Email details: " << endl;
+            cout << "Time: " << time_sent << endl;
+            cout << "Recipients: " << endl;
+            for (auto i : recipients){
+                cout << "- " << i << endl;
+            }
+            cout << "Content: " << content << endl;
+            cout << "Email type: " << email_type << endl;
+            cout << "Priority: " << priority << endl;
+            cout << "Attachments: " << endl;
+            for (auto j : attachments){
+                cout << "- " << j << endl;
+            }
+        }
 };
 
 int main()
