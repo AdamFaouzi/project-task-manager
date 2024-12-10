@@ -146,7 +146,7 @@ public:
     Time getStartTime() { return start_time; }
     Time getEndTime() { return end_time; }
     Location getLocation() { return location; }
-    bool getSendEmail(){ return send_emails; }
+    bool getSendEmail() { return send_emails; }
 
     void setTitle(string t) { title = t; }
     void setStartTime(const Time &st) { start_time = st; }
@@ -163,7 +163,7 @@ private:
     bool catering;
 
 public:
-    Event(string ti, Time st, Time et, Location l,bool se, double f, bool t, bool c) : Task(ti, st, et, l,se), funding(f), transportation(t), catering(c) {}
+    Event(string ti, Time st, Time et, Location l, bool se, double f, bool t, bool c) : Task(ti, st, et, l, se), funding(f), transportation(t), catering(c) {}
 
     double getFunding() { return funding; }
     bool getTransportation() { return transportation; }
@@ -190,7 +190,7 @@ private:
     vector<int> numbers;
 
 public:
-    ClubEvent(string ti, Time st, Time et, Location l,bool se, double f, bool t, bool c) : Event(ti, st, et, l,se, f, t, c) {}
+    ClubEvent(string ti, Time st, Time et, Location l, bool se, double f, bool t, bool c) : Event(ti, st, et, l, se, f, t, c) {}
 
     void addRep(const string &rep)
     {
@@ -266,7 +266,7 @@ private:
     bool equipment;
 
 public:
-    Workshop(string ti, Time st, Time et, Location l,bool se, double f, bool t, bool c, string i, int n, bool e) : Event(ti, st, et, l,se, f, t, c), instructor(i), number(n), equipment(e) {}
+    Workshop(string ti, Time st, Time et, Location l, bool se, double f, bool t, bool c, string i, int n, bool e) : Event(ti, st, et, l, se, f, t, c), instructor(i), number(n), equipment(e) {}
 
     string getInstructor() const
     {
@@ -315,7 +315,7 @@ private:
     int room_number;
 
 public:
-    Meeting(string ti, Time st, Time et, Location l,bool se, string b, int rn) : Task(ti, st, et, l,se), building(b), room_number(rn){}
+    Meeting(string ti, Time st, Time et, Location l, bool se, string b, int rn) : Task(ti, st, et, l, se), building(b), room_number(rn) {}
     // getters
     string getBuilding() { return building; }
     int getRoomNumber() { return room_number; }
@@ -339,7 +339,7 @@ private:
     vector<string> equipment;
 
 public:
-    General(string ti, Time st, Time et, Location l,bool se, string b, int rn, bool en) : Meeting(ti, st, et, l,se,b,rn), equip_needed(en) {}
+    General(string ti, Time st, Time et, Location l, bool se, string b, int rn, bool en) : Meeting(ti, st, et, l, se, b, rn), equip_needed(en) {}
 
     // getter
     bool getEquipNeeded() { return equip_needed; }
@@ -405,7 +405,7 @@ private:
     bool follow_up;
 
 public:
-    oneOnOne(string ti, Time st, Time et, Location l,bool se, string b, int rn, bool fu) : Meeting(ti, st, et, l,se, b, rn), follow_up(fu) {}
+    oneOnOne(string ti, Time st, Time et, Location l, bool se, string b, int rn, bool fu) : Meeting(ti, st, et, l, se, b, rn), follow_up(fu) {}
 
     // getter
     bool getFollowUp() { return follow_up; }
@@ -420,7 +420,6 @@ public:
         cout << "Follow up required? " << follow_up << endl;
     }
 };
-
 
 int checkDay(int day)
 {
@@ -470,9 +469,12 @@ double checkTime(double time)
     return time;
 }
 
-int findTask(vector<Task>& tasks, string& title){
-    for(int i=0; i<tasks.size();i++){
-        if(tasks[i].getTitle() == title){
+int findTask(vector<Task> &tasks, string &title)
+{
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        if (tasks[i].getTitle() == title)
+        {
             return i;
         }
     }
@@ -487,628 +489,509 @@ int main()
     int choice = -1;
     while (choice != 0)
     {
-        cout << "------------------------------------------------------------------------------------------" << endl;
-        cout << "What would you like to do: " << endl;
-        cout << "0- Terminate program \n1- Create a task \n2- Edit task \n3- Display Task \n4- Delete Task" << endl;
-        cout << ": ";
+        cout << "\n========== Task Management Menu ==========" << endl;
+        cout << "0 - Terminate program" << endl;
+        cout << "1 - Create a task" << endl;
+        cout << "2 - Edit a task" << endl;
+        cout << "3 - Display a task" << endl;
+        cout << "4 - Delete a task" << endl;
+        cout << "==========================================\n";
+        cout << "Enter your choice: ";
         cin >> choice;
-        cout << endl;
+
         if (choice == 0)
         {
-            cout << "Your code has been terminated...";
+            cout << "\nProgram terminated. Goodbye!\n";
             exit(0);
         }
-        else if (choice == 1)
+        else if (choice == 1) // Create a task
         {
-            cout << "------------------------------------------------------------------------------------------" << endl;
-            cout << "What kind of task would you like to create? " << endl;
-            cout << "1- Event \n2- Meeting" << endl;
-            cout << ": ";
+            cout << "\n========== Create a Task ==========" << endl;
+            cout << "1 - Event" << endl;
+            cout << "2 - Meeting" << endl;
+            cout << "===================================\n";
+            cout << "Enter your choice: ";
             cin >> choice;
-            cout << endl;
 
-            if (choice == 1)
-            {   
-                cout << "------------------------------------------------------------------------------------------" << endl;
-                cout << "What kind of event do you want to create? " << endl;
-                cout << "1- Club event \n2- Workshop " << endl;
-                cout << ": ";
+            if (choice == 1) // Create an event
+            {
+                cout << "\n========== Create an Event ==========" << endl;
+                cout << "1 - Club Event" << endl;
+                cout << "2 - Workshop" << endl;
+                cout << "=====================================\n";
+                cout << "Enter your choice: ";
                 cin >> choice;
-                cout << endl;
 
-                cout << "What is the title of your Event: ";
-                    string title;
-                    cin >> title;
-                    cout << endl;
+                cout << "\nEnter the title of your Event: ";
+                string title;
+                cin >> title;
 
-                    cout << "Start time input, " << endl;
+                cout << "\n========== Start Time Input ==========" << endl;
+                cout << "Year: ";
+                int year;
+                cin >> year;
+                checkYear(year);
 
-                    cout << "Year: ";
-                    int year;
-                    cin >> year;
+                cout << "Month: ";
+                int month;
+                cin >> month;
+                checkMonth(month);
 
-                    checkYear(year);
-                    cout << endl;
+                cout << "Day: ";
+                int day;
+                cin >> day;
+                checkDay(day);
 
-                    cout << "Month: ";
-                    int month;
-                    cin >> month;
+                cout << "Time (24-hour format): ";
+                double time;
+                cin >> time;
+                checkTime(time);
 
-                    checkMonth(month);
-                    cout << endl;
+                Time start_time = Time(year, month, day, time);
 
-                    cout << "Day: ";
-                    int day;
-                    cin >> day;
+                cout << "\n========== End Time Input ==========" << endl;
+                cout << "Year: ";
+                cin >> year;
+                checkYear(year);
 
-                    checkDay(day);
-                    cout << endl;
+                cout << "Month: ";
+                cin >> month;
+                checkMonth(month);
 
-                    cout << "Time: ";
-                    double time;
-                    cin >> time;
+                cout << "Day: ";
+                cin >> day;
+                checkDay(day);
 
-                    checkTime(time);
-                    cout << endl;
+                cout << "Time (24-hour format): ";
+                cin >> time;
+                checkTime(time);
 
-                    Time start_time = Time(year, month, day, time);
+                Time end_time = Time(year, month, day, time);
 
-                    cout << "End time input, " << endl;
-                    cout << "Year: ";
-                    cin >> year;
+                cout << "\n========== Location Input ==========" << endl;
+                cout << "Country: ";
+                string country;
+                cin >> country;
 
-                    checkYear(year);
-                    cout << endl;
+                cout << "City: ";
+                string city;
+                cin >> city;
 
-                    cout << "Month: ";
-                    cin >> month;
+                cout << "Street: ";
+                string street;
+                cin >> street;
 
-                    checkMonth(month);
-                    cout << endl;
+                cout << "Postal Code: ";
+                int postal_code;
+                cin >> postal_code;
 
-                    cout << "Day: ";
-                    cin >> day;
+                Location location = Location(country, city, street, postal_code);
 
-                    checkDay(day);
-                    cout << endl;
+                cout << "\nFunding Needed (in $): ";
+                double funding;
+                cin >> funding;
 
-                    cout << "Time: ";
-                    cin >> time;
+                cout << "Transportation Needed (yes/no): ";
+                bool transport;
+                string choice2;
+                cin >> choice2;
+                transport = (choice2 == "yes" || choice2 == "YES");
 
-                    checkTime(time);
-                    cout << endl;
+                cout << "Catering Needed (yes/no): ";
+                bool catering;
+                cin >> choice2;
+                catering = (choice2 == "yes" || choice2 == "YES");
 
-                    Time end_time = Time(year, month, day, time);
+                cout << "Send Email Notification (yes/no): ";
+                bool email;
+                cin >> choice2;
+                email = (choice2 == "yes" || choice2 == "YES");
 
-                    cout << "Location input, " << endl;
-
-                    cout << "Country: ";
-                    string country;
-                    cin >> country;
-                    cout << endl;
-
-                    cout << "City: ";
-                    string city;
-                    cin >> city;
-                    cout << endl;
-
-                    cout << "Street: ";
-                    string street;
-                    cin >> street;
-                    cout << endl;
-
-                    cout << "Postal code: ";
-                    int postal_code;
-                    cin >> postal_code;
-                    cout << endl;
-
-                    Location location = Location(country, city, street, postal_code);
-
-                    cout << "How much funding is needed: ";
-                    double funding;
-                    cin >> funding;
-                    cout << endl;
-
-                    cout << "Do you need transportation (yes or no): ";
-                    bool transport;
-                    string choice2;
-                    cin >> choice2;
-                    cout << endl;
-
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        transport = true;
-                    }
-                    else
-                    {
-                        transport = false;
-                    }
-
-                    cout << "Do you need catering (yes or no): ";
-                    bool catering;
-                    cin >> choice2;
-                    cout << endl;
-
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        catering = true;
-                    }
-                    else
-                    {
-                        catering = false;
-                    }
-
-                    cout << "Do you need to send an email (yes or no): ";
-                    bool email;
-                    cin >> choice2;
-                    cout << endl;
-
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        email = true;
-                    }
-                    else
-                    {
-                        email = false;
-                    }
-
-                if (choice == 1)
+                if (choice == 1) // Club Event
                 {
+                    ClubEvent club_event = ClubEvent(title, start_time, end_time, location, email, funding, transport, catering);
 
-                    ClubEvent club_event = ClubEvent(title, start_time, end_time, location,email, funding, transport, catering);
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many participants do you have: ";
+                    cout << "\nHow many participants do you have? ";
                     int participants;
                     cin >> participants;
-                    cout << endl;
 
                     string name;
-                    for (int i = 0; i < participants; i++)
+                    for (int i = 0; i < participants; ++i)
                     {
                         cout << "Enter the participant name: ";
                         cin >> name;
                         club_event.addParticipant(name);
-                        cout << endl;
                     }
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many representatives do you have: ";
+
+                    cout << "\nHow many representatives do you have? ";
                     int representatives;
                     cin >> representatives;
-                    cout << endl;
 
                     int number;
-                    for (int i = 0; i < representatives; i++)
+                    for (int i = 0; i < representatives; ++i)
                     {
                         cout << "Enter the representative name: ";
                         cin >> name;
                         club_event.addRep(name);
-                        cout << endl;
                         cout << "Enter the representative's number: ";
                         cin >> number;
                         club_event.addNumber(number);
-                        cout << endl;
                     }
 
                     tasks.push_back(club_event);
+                    cout << "\nClub event created successfully!\n";
                 }
-                else if (choice == 2)
+                else if (choice == 2) // Workshop
                 {
-                    cout << "Enter the name of the instructor: ";
+                    cout << "\nEnter the name of the instructor: ";
                     string instructor;
                     cin >> instructor;
-                    cout << endl;
 
                     cout << "Enter the phone number of the instructor: ";
                     int number;
                     cin >> number;
-                    cout << endl;
 
-                    cout << "Do you need equipment (yes or no): ";
+                    cout << "Equipment Needed (yes/no): ";
                     bool equipment;
                     cin >> choice2;
-                    cout << endl;
+                    equipment = (choice2 == "yes" || choice2 == "YES");
 
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        equipment = true;
-                    }
-                    else
-                    {
-                        equipment = false;
-                    }
+                    Workshop workshop = Workshop(title, start_time, end_time, location, email, funding, transport, catering, instructor, number, equipment);
 
-                    Workshop workshop = Workshop(title, start_time, end_time, location,email, funding, transport, catering, instructor, number, equipment);
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many participants do you have: ";
+                    cout << "\nHow many participants do you have? ";
                     int participants;
                     cin >> participants;
-                    cout << endl;
 
                     string name;
-                    for (int i = 0; i < participants; i++)
+                    for (int i = 0; i < participants; ++i)
                     {
                         cout << "Enter the participant name: ";
                         cin >> name;
                         workshop.addParticipant(name);
-                        cout << endl;
                     }
 
                     tasks.push_back(workshop);
+                    cout << "\nWorkshop created successfully!\n";
                 }
                 else
                 {
-                    cout << "Wrong input, restarting...";
+                    cout << "\nInvalid input. Returning to main menu.\n";
                 }
             }
-            else if (choice == 2)
+            else if (choice == 2) // Create a meeting
             {
-            cout << "------------------------------------------------------------------------------------------" << endl;
-            cout << "What kind of meeting do you want to create? " << endl;
-            cout << "1- General \n2- One-on-one" << endl;
-            cout << ": ";
-            cin >> choice;
-            cout << endl;
+                cout << "\n========== Create a Meeting ==========" << endl;
+                cout << "1 - General Meeting" << endl;
+                cout << "2 - One-on-One Meeting" << endl;
+                cout << "======================================\n";
+                cout << "Enter your choice: ";
+                cin >> choice;
 
-            cout << "What is the title of your meeting: ";
+                cout << "\nEnter the title of your Meeting: ";
                 string title;
                 cin >> title;
-                cout << endl;
 
-                cout << "Start time input, " << endl;
-
+                cout << "\n========== Start Time Input ==========" << endl;
                 cout << "Year: ";
                 int year;
                 cin >> year;
-
                 checkYear(year);
-                cout << endl;
 
                 cout << "Month: ";
                 int month;
                 cin >> month;
-
                 checkMonth(month);
-                cout << endl;
 
                 cout << "Day: ";
                 int day;
                 cin >> day;
-
                 checkDay(day);
-                cout << endl;
 
-                cout << "Time: ";
+                cout << "Time (24-hour format): ";
                 double time;
                 cin >> time;
-
                 checkTime(time);
-                cout << endl;
 
                 Time start_time = Time(year, month, day, time);
 
-                cout << "End time input, " << endl;
-
+                cout << "\n========== End Time Input ==========" << endl;
                 cout << "Year: ";
                 cin >> year;
-
                 checkYear(year);
-                cout << endl;
 
-                cout << "Month (from 1-12): ";
+                cout << "Month: ";
                 cin >> month;
-
                 checkMonth(month);
-                cout << endl;
 
                 cout << "Day: ";
                 cin >> day;
-
                 checkDay(day);
-                cout << endl;
 
-                cout << "Time: ";
+                cout << "Time (24-hour format): ";
                 cin >> time;
-
                 checkTime(time);
-                cout << endl;
 
                 Time end_time = Time(year, month, day, time);
 
-                cout << "Location input, " << endl;
-
+                cout << "\n========== Location Input ==========" << endl;
                 cout << "Country: ";
                 string country;
                 cin >> country;
-                cout << endl;
 
                 cout << "City: ";
                 string city;
                 cin >> city;
-                cout << endl;
 
                 cout << "Street: ";
                 string street;
                 cin >> street;
-                cout << endl;
 
-                cout << "Postal code: ";
+                cout << "Postal Code: ";
                 int postal_code;
                 cin >> postal_code;
-                cout << endl;
 
                 Location location = Location(country, city, street, postal_code);
 
-                cout << "Do you need to send an email (yes or no): ";
-                    bool email;
-                    string choice2;
-                    cin >> choice2;
-                    cout << endl;
-
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        email = true;
-                    }
-                    else
-                    {
-                        email = false;
-                    }
-
-                cout << "Building: ";
-                string building;
-                cin >> building;
-                cout << endl;
-                
-                cout << "Room number: ";
-                int room_number;
-                cin >> room_number;
-                cout << endl;
-
-                if(choice==1){
-
-                    cout << "Do you need equipment (yes or no): ";
+                if (choice == 1) // General Meeting
+                {
+                    cout << "\n========== General Meeting Options ==========" << endl;
+                    cout << "Equipment Needed (yes/no): ";
                     bool equipment;
                     string choice2;
                     cin >> choice2;
-                    cout << endl;
+                    equipment = (choice2 == "yes" || choice2 == "YES");
 
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        equipment = true;
-                    }
-                    else
-                    {
-                        equipment = false;
-                    }
+                    General general_meeting = General(title, start_time, end_time, location, false, "Building Name", 100, equipment);
 
-                    General general_meeting = General(title,start_time,end_time,location,email,building,room_number,equipment);
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many participants do you have: ";
+                    cout << "\nHow many participants do you have? ";
                     int participants;
                     cin >> participants;
-                    cout << endl;
 
                     string name;
-                    for (int i = 0; i < participants; i++)
+                    for (int i = 0; i < participants; ++i)
                     {
                         cout << "Enter the participant name: ";
                         cin >> name;
                         general_meeting.addParticipant(name);
-                        cout << endl;
-                    }
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many types of equipment will you need: ";
-                    int num_equipment;
-                    cin >> num_equipment;
-                    cout << endl;
-
-                    string equipmentName;
-                    for(int i=0; i<num_equipment; i++){
-                        cout << "Enter the name of equipment #" << i << ": ";
-                        cin >> equipmentName;
-                        general_meeting.add_equip(equipmentName);
-                        cout << endl;
                     }
 
                     tasks.push_back(general_meeting);
-
-                } else if(choice == 2){
-
-                    cout << "Do you need a follow-up meeting? : ";
+                    cout << "\nGeneral meeting created successfully!\n";
+                }
+                else if (choice == 2) // One-on-One Meeting
+                {
+                    cout << "\nDo you need a follow-up meeting (yes/no)? ";
                     bool followUp;
                     string choice2;
                     cin >> choice2;
-                    cout << endl;
+                    followUp = (choice2 == "yes" || choice2 == "YES");
 
-                    if (choice2 == "YES" || choice2 == "yes")
-                    {
-                        followUp = true;
-                    }
-                    else
-                    {
-                        followUp = false;
-                    }
+                    oneOnOne one_on_one = oneOnOne(title, start_time, end_time, location, false, "Building Name", 100, followUp);
 
-                    oneOnOne oneOnOne_meeting = oneOnOne(title,start_time,end_time,location,email,building,room_number,followUp);
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many participants do you have: ";
+                    cout << "\nHow many participants do you have? ";
                     int participants;
                     cin >> participants;
-                    cout << endl;
 
                     string name;
-                    for (int i = 0; i < participants; i++)
+                    for (int i = 0; i < participants; ++i)
                     {
                         cout << "Enter the participant name: ";
                         cin >> name;
-                        oneOnOne_meeting.addParticipant(name);
-                        cout << endl;
+                        one_on_one.addParticipant(name);
                     }
 
-                    tasks.push_back(oneOnOne_meeting);
-                } else{
-                    cout << "Wrong input, restarting...";
+                    tasks.push_back(one_on_one);
+                    cout << "\nOne-on-One meeting created successfully!\n";
                 }
-            }else{
-            cout << "Wrong input, restarting...";
+                else
+                {
+                    cout << "\nInvalid input. Returning to main menu.\n";
+                }
+            }
+            else
+            {
+                cout << "\nInvalid input. Returning to main menu.\n";
+            }
         }
-
-        }//main event,meeting
-        else if(choice==2){
-            cout << "------------------------------------------------------------------------------------------" << endl;
+        else if (choice == 2) // Edit task
+        {
+            cout << "\n========== Edit Task ==========" << endl;
             cout << "Enter the title of the task you want to edit: ";
             string title;
             cin >> title;
-            cout << endl;
-            int index = findTask(tasks,title);
-            cout << "------------------------------------------------------------------------------------------" << endl;
-            cout << "Choose what to edit" << endl;
-            cout << "1- Start time" << endl;
-            cout << "2- End time" << endl;
-            cout << "3- Location" << endl;
-            cout << "4- Participants" << endl;
-            cout << ": ";
+
+            int index = findTask(tasks, title);
+
+            cout << "\n========== Edit Options ==========" << endl;
+            cout << "1 - Start Time" << endl;
+            cout << "2 - End Time" << endl;
+            cout << "3 - Location" << endl;
+            cout << "4 - Participants" << endl;
+            cout << "==================================\n";
+            cout << "Enter your choice: ";
             cin >> choice;
-            cout << endl;
-            if(choice==1){
+
+            if (choice == 1) // Edit start time
+            {
+                cout << "\n========== Update Start Time ==========" << endl;
                 cout << "Year: ";
                 int year;
                 cin >> year;
-
                 checkYear(year);
-                cout << endl;
 
                 cout << "Month: ";
                 int month;
                 cin >> month;
-
                 checkMonth(month);
-                cout << endl;
 
                 cout << "Day: ";
                 int day;
                 cin >> day;
-
                 checkDay(day);
-                cout << endl;
 
-                cout << "Time: ";
+                cout << "Time (24-hour format): ";
                 double time;
                 cin >> time;
-
                 checkTime(time);
-                cout << endl;
 
-                Time t = Time(year,month,day,time);
-                tasks[index].setStartTime(t);
-            } else if(choice == 2){
+                Time newStartTime = Time(year, month, day, time);
+                tasks[index].setStartTime(newStartTime);
+
+                cout << "\nStart time updated successfully!\n";
+            }
+            else if (choice == 2) // Edit end time
+            {
+                cout << "\n========== Update End Time ==========" << endl;
                 cout << "Year: ";
                 int year;
                 cin >> year;
-
                 checkYear(year);
-                cout << endl;
 
                 cout << "Month: ";
                 int month;
                 cin >> month;
-
                 checkMonth(month);
-                cout << endl;
 
                 cout << "Day: ";
                 int day;
                 cin >> day;
-
                 checkDay(day);
-                cout << endl;
 
-                cout << "Time: ";
+                cout << "Time (24-hour format): ";
                 double time;
                 cin >> time;
-
                 checkTime(time);
-                cout << endl;
 
-                Time t = Time(year,month,day,time);
-                tasks[index].setEndTime(t);
-            } else if(choice==3){
+                Time newEndTime = Time(year, month, day, time);
+                tasks[index].setEndTime(newEndTime);
+
+                cout << "\nEnd time updated successfully!\n";
+            }
+            else if (choice == 3) // Edit location
+            {
+                cout << "\n========== Update Location ==========" << endl;
                 cout << "Country: ";
                 string country;
                 cin >> country;
-                cout << endl;
 
                 cout << "City: ";
                 string city;
                 cin >> city;
-                cout << endl;
 
                 cout << "Street: ";
                 string street;
                 cin >> street;
-                cout << endl;
 
-                cout << "Postal code: ";
+                cout << "Postal Code: ";
                 int postal_code;
                 cin >> postal_code;
-                cout << endl;
 
-                Location location = Location(country, city, street, postal_code);
+                Location newLocation = Location(country, city, street, postal_code);
+                tasks[index].setLocation(newLocation);
 
-                tasks[index].setLocation(location);
-            } else if(choice==4){
-                cout << "------------------------------------------------------------------------------------------" << endl;
-                cout << "Do you want to 1- Add or 2- Remove participants : ";
+                cout << "\nLocation updated successfully!\n";
+            }
+            else if (choice == 4) // Edit participants
+            {
+                cout << "\n========== Edit Participants ==========" << endl;
+                cout << "1 - Add Participants" << endl;
+                cout << "2 - Remove Participants" << endl;
+                cout << "=======================================\n";
+                cout << "Enter your choice: ";
                 cin >> choice;
-                cout << endl;
-                if(choice==1){
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many participants do you want to add?: ";
+
+                if (choice == 1) // Add participants
+                {
+                    cout << "\nHow many participants do you want to add? ";
                     int count;
                     cin >> count;
-                    cout << endl;
+
                     string name;
-                    for(int i=0; i<count; i++){
-                        cout << "Enter name: ";
+                    for (int i = 0; i < count; ++i)
+                    {
+                        cout << "Enter participant name: ";
                         cin >> name;
                         tasks[index].addParticipant(name);
-                        cout << endl;
                     }
-                } else if(choice==2){
-                    cout << "------------------------------------------------------------------------------------------" << endl;
-                    cout << "How many participants do you want to remove?: ";
+
+                    cout << "\nParticipants added successfully!\n";
+                }
+                else if (choice == 2) // Remove participants
+                {
+                    cout << "\nHow many participants do you want to remove? ";
                     int count;
                     cin >> count;
-                    cout << endl;
+
                     string name;
-                    for(int i=0; i<count; i++){
-                        cout << "Enter name: ";
+                    for (int i = 0; i < count; ++i)
+                    {
+                        cout << "Enter participant name: ";
                         cin >> name;
                         tasks[index].removeParticipant(name);
-                        cout << endl;
                     }
+
+                    cout << "\nParticipants removed successfully!\n";
+                }
+                else
+                {
+                    cout << "\nInvalid input. Returning to main menu.\n";
                 }
             }
+            else
+            {
+                cout << "\nInvalid input. Returning to main menu.\n";
+            }
+        }
+        else if (choice == 3) // Display task
+        {
+            cout << "\n========== Display Task ==========" << endl;
+            cout << "Enter the title of the task you wish to display: ";
+            string title;
+            cin >> title;
 
-        } else if(choice==3){
-            cout << "------------------------------------------------------------------------------------------" << endl;
-            cout << "Enter task title you wish to display: ";
-            string title;
-            cin >> title;
-            cout << endl;
-            int index = findTask(tasks,title);
+            int index = findTask(tasks, title);
+
+            cout << "\n========== Task Information ==========" << endl;
             tasks[index].displayInformation();
-        } else if(choice == 4){
-            cout << "------------------------------------------------------------------------------------------" << endl;
-            cout << "Enter task title you wish to delete: ";
+            cout << "======================================\n";
+        }
+        else if (choice == 4) // Delete task
+        {
+            cout << "\n========== Delete Task ==========" << endl;
+            cout << "Enter the title of the task you wish to delete: ";
             string title;
             cin >> title;
-            cout << endl;
-            int index = findTask(tasks,title);
+
+            int index = findTask(tasks, title);
+
             history.push_back(tasks[index]);
             tasks.erase(tasks.begin() + index);
+
+            cout << "\nTask deleted successfully!\n";
         }
-        else{
-            cout << "Wrong input, restarting...";
-        }
+        else
+        {
+            cout << "\nInvalid input. Please try again.\n";
         }
     }
+}
