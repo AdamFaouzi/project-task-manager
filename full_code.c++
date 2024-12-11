@@ -481,6 +481,30 @@ int findTask(vector<Task> &tasks, string &title)
     return -1;
 }
 
+void findTask(vector<Task> &tasks, Time &time)
+{
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        if (tasks[i].getStartTime().getYear() == time.getYear() && tasks[i].getStartTime().getMonth() == time.getMonth() && tasks[i].getStartTime().getDay() == time.getDay() && tasks[i].getStartTime().getTime() == time.getTime())
+        {
+            tasks[i].displayInformation();
+            cout << endl;
+        }
+    }
+}
+
+void findTask(vector<Task> &tasks, Location &location)
+{
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        if (tasks[i].getLocation().getCountry() == location.getCountry() && tasks[i].getLocation().getCity() == location.getCity() && tasks[i].getLocation().getStreet() == location.getStreet() && tasks[i].getLocation().getPostalCode() == location.getPostalCode())
+        {
+            tasks[i].displayInformation();
+            cout << endl;
+        }
+    }
+}
+
 int main()
 {
     vector<Task> tasks;
@@ -494,7 +518,9 @@ int main()
         cout << "1 - Create a task" << endl;
         cout << "2 - Edit a task" << endl;
         cout << "3 - Display a task" << endl;
-        cout << "4 - Delete a task" << endl;
+        cout << "4 - Display Tasks by Start Time" <<endl;
+        cout << "5 - Display Taks by Location" << endl;
+        cout << "6 - Delete a task" << endl;
         cout << "==========================================\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -975,7 +1001,45 @@ int main()
             tasks[index].displayInformation();
             cout << "======================================\n";
         }
-        else if (choice == 4) // Delete task
+        else if (choice == 4){
+          cout << "\n========== Find Task by Start Time ==========" << endl;
+          cout << "Enter the Year: ";
+          int year;
+          cin >> year;
+          cout << "Enter the Month: ";
+          int month;
+          cin >> month;
+          cout << "Enter the Day: ";
+          int day;
+          cin >> day;
+          cout << "Enter the Time: ";
+          double time;
+          cin >> time;
+          Time temp_time = Time(year,month,day,time);
+          findTask(tasks, temp_time);
+        }
+        else if (choice == 5){
+            cout << "\n========== Find Task by Location ==========" << endl;
+            cout << "Country: ";
+            string country;
+            cin >> country;
+
+            cout << "City: ";
+            string city;
+            cin >> city;
+
+            cout << "Street: ";
+            string street;
+            cin >> street;
+
+            cout << "Postal Code: ";
+            int postal_code;
+            cin >> postal_code;
+
+            Location newLocation = Location(country, city, street, postal_code);
+            findTask(tasks,newLocation);
+        }
+        else if (choice == 6) // Delete task
         {
             cout << "\n========== Delete Task ==========" << endl;
             cout << "Enter the title of the task you wish to delete: ";
