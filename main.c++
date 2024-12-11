@@ -66,6 +66,18 @@ int findTask(vector<Task> &tasks, string &title)
     return -1;
 }
 
+int findTask(vector<Task> &tasks, Time &time)
+{
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        if (tasks[i].getStartTime().getYear() == time.getYear() && tasks[i].getStartTime().getMonth() == time.getMonth() && tasks[i].getStartTime().getDay() == time.getDay() && tasks[i].getStartTime().getTime() == time.getTime())
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
     vector<Task> tasks;
@@ -79,7 +91,8 @@ int main()
         cout << "1 - Create a task" << endl;
         cout << "2 - Edit a task" << endl;
         cout << "3 - Display a task" << endl;
-        cout << "4 - Delete a task" << endl;
+        cout << "4 - Display Tasks by Start Time" <<endl;
+        cout << "5 - Delete a task" << endl;
         cout << "==========================================\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -560,7 +573,25 @@ int main()
             tasks[index].displayInformation();
             cout << "======================================\n";
         }
-        else if (choice == 4) // Delete task
+        else if (choice == 4){
+          cout << "\n========== Find Task by Start Time ==========" << endl;
+          cout << "Enter the Year: ";
+          int year;
+          cin >> year;
+          cout << "Enter the Month: ";
+          int month;
+          cin >> month;
+          cout << "Enter the Day: ";
+          int day;
+          cin >> day;
+          cout << "Enter the Time: ";
+          double time;
+          cin >> time;
+          Time temp_time = Time(year,month,day,time);
+          int index = findTask(tasks, temp_time);
+          tasks[index].displayInformation();
+        }
+        else if (choice == 5) // Delete task
         {
             cout << "\n========== Delete Task ==========" << endl;
             cout << "Enter the title of the task you wish to delete: ";
